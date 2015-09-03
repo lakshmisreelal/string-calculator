@@ -22,7 +22,10 @@ public class StringCalculatorTest {
     private static final String ONE_NUMBER_STRING = "1";
     private static final String TWO_NUMBER_STRING = "1,2";
     private static final String THREE_NUMBER_STRING = "1,2,3";
-    
+    private static final String NEW_LINE_DELIMTER_BETWEEN_STRING = "1\n2\n3";
+    private static final String NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE = "1\n2,3";
+    private static final String NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS = "//;\n1;2p4";
+        
     private StringCalculator stringCalculator;
 
     @Before
@@ -55,6 +58,25 @@ public class StringCalculatorTest {
     public void ifTheArgumentContainsMoreThanTwoNumbers() throws ValidatorException{
         int result = stringCalculator.add(THREE_NUMBER_STRING);
         assertEquals(6, result);
+    }
+    @Test
+    public void newLineDelimeterBetweenNumbers() throws ValidatorException{
+        int result = stringCalculator.add(NEW_LINE_DELIMTER_BETWEEN_STRING);
+        assertEquals(6, result);
+    }
+    
+    @Test
+    public void shouldReturnTheSumOfAnUnknownAmountOfNumbersSeparatedWithNewLineCharacters() throws ValidatorException {
+        int result = stringCalculator.add(NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE);
+
+        assertEquals(6, result);
+    }
+
+    @Test
+    public void shouldReturnTheSumOfAnUnknownAmoutOfNumbersSeparatedWithDifferentDelimiters() throws ValidatorException {
+        int result = stringCalculator.add(NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS);
+
+        assertEquals(7, result);
     }
     
     @SuppressWarnings({ "unchecked" })
