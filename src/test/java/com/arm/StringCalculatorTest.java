@@ -27,6 +27,8 @@ public class StringCalculatorTest {
     private static final String NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE = "1\n2,3";
     private static final String NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS = "//;\n1;2p4";
     private static final String NUMBERS_STRING_WITH_NEGATIVE_VALUES = "-10,1,3";
+    private static final String NUMBERS_STRING_SUM_TWO_WITH_MORE_THAN_THOUSAND = "2,1000";
+    private static final String NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS_CONSECUTIVES = "[*][%]\\n1*2%4";
         
     private StringCalculator stringCalculator;
 
@@ -85,6 +87,52 @@ public class StringCalculatorTest {
     public void shouldThrowNegativeNumbersNotSupportedException() throws ValidatorException {
         stringCalculator.add(NUMBERS_STRING_WITH_NEGATIVE_VALUES);
     }
+    
+
+    @Test
+    public void shouldIgnoreNumbersGratherThanOneThousand() throws ValidatorException {
+        int result = stringCalculator.add(NUMBERS_STRING_SUM_TWO_WITH_MORE_THAN_THOUSAND);
+
+        assertEquals(1002, result);
+    }
+
+    @Test
+    public void shouldAllowDifferentDelimitersWithMoreThanOneCharAndMoreThanOneConsecutive() throws ValidatorException {
+        int result = stringCalculator.add(NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS_CONSECUTIVES);
+
+        assertEquals(7, result);
+    }
+    
+    @SuppressWarnings({ "unchecked" })
+	@Test
+    public void shouldReturnAnEmptyCollectionIfTheParamIsEmpty() 
+    throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method method = StringCalculator.class.getDeclaredMethod("extractNumbers", new Class[]{ String.class});
+		method.setAccessible(true);	
+		List<Integer> result = (List<Integer>) method.invoke(stringCalculator, "");
+        List<Integer> expectedResult = new LinkedList<Integer>();
+        assertEquals(expectedResult, result);
+    }
+    
+    @SuppressWarnings({ "unchecked" })
+	@Test
+    public void shouldReturnACollectionWithTheNumbersExtracted() 
+    throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method method = StringCalculator.class.getDeclaredMethod("extractNumbers", new Class[]{ String.class});
+		method.setAccessible(true);	
+		List<Integer> result = (List<Integer>) method.invoke(stringCalculator, "\n|·1,2,3,pouusdf4%5&6");
+		List<Integer> expectedResult = generateListOfNumbers(1, 2, 3, 4, 5, 6);
+        assertEquals(expectedResult, result);
+    }
+    
+    private List<Integer> generateListOfNumbers(Integer... nums) {
+        List<Integer> result = new LinkedList<Integer>();
+        for (Integer num : nums) {
+            result.add(num);
+        }
+        return result;
+    }
+
     
     @SuppressWarnings({ "unchecked" })
 	@Test
