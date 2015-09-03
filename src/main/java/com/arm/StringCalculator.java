@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.arm.exception.ValidatorException;
+
 /**
  * Main class. StringCalculator is an application created to analyze one string,
  * extract the numeric values and return an integer that represents the sum of
@@ -16,7 +18,11 @@ public class StringCalculator {
 
 	public static void main(String[] args) {
 		System.out.print("Sum of numeric values:");
-		new StringCalculator().add("1,2");
+		try {
+			new StringCalculator().add("1,2,3");
+		} catch (ValidatorException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -27,10 +33,14 @@ public class StringCalculator {
 	 *            to analyze and sum.
 	 * @return the sum value with some restrictions described in the project
 	 *         documentation.
+	 * @throws ValidatorException 
 	 */
-	public int add(final String numbers) {
+	public int add(final String numbers) throws ValidatorException {
 		List<Integer> numbersList = extractNumbers(numbers);
 		if (!numbersList.isEmpty()) {
+			if(numbersList.size() > 2) {
+        		throw new ValidatorException("Maximum input expected is 2");
+        	}
 		}
 		return sumNumbers(numbersList);
 	}
