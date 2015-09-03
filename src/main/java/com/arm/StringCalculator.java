@@ -37,11 +37,6 @@ public class StringCalculator {
 	 */
 	public int add(final String numbers) throws ValidatorException {
 		List<Integer> numbersList = extractNumbers(numbers);
-		if (!numbersList.isEmpty()) {
-			if(numbersList.size() > 2) {
-        		throw new ValidatorException("Maximum input expected is 2");
-        	}
-		}
 		return sumNumbers(numbersList);
 	}
 

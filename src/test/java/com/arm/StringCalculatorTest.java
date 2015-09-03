@@ -51,9 +51,10 @@ public class StringCalculatorTest {
         assertEquals(3, result);
     }
     
-    @Test(expected = ValidatorException.class)
+    @Test
     public void ifTheArgumentContainsMoreThanTwoNumbers() throws ValidatorException{
-        stringCalculator.add(THREE_NUMBER_STRING);
+        int result = stringCalculator.add(THREE_NUMBER_STRING);
+        assertEquals(6, result);
     }
     
     @SuppressWarnings({ "unchecked" })
