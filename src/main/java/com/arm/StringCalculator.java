@@ -37,6 +37,9 @@ public class StringCalculator {
 	 */
 	public int add(final String numbers) throws ValidatorException {
 		List<Integer> numbersList = extractNumbers(numbers);
+		if(!numbersList.isEmpty()) {
+			NegativeNumberFinder.validate(numbersList);
+		}	
 		return sumNumbers(numbersList);
 	}
 

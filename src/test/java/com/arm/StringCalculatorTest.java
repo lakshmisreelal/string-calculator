@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.arm.exception.NegativeNumbersNotAllowedException;
 import com.arm.exception.ValidatorException;
 
 /**
@@ -25,6 +26,7 @@ public class StringCalculatorTest {
     private static final String NEW_LINE_DELIMTER_BETWEEN_STRING = "1\n2\n3";
     private static final String NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE = "1\n2,3";
     private static final String NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS = "//;\n1;2p4";
+    private static final String NUMBERS_STRING_WITH_NEGATIVE_VALUES = "-10,1,3";
         
     private StringCalculator stringCalculator;
 
@@ -66,17 +68,22 @@ public class StringCalculatorTest {
     }
     
     @Test
-    public void shouldReturnTheSumOfAnUnknownAmountOfNumbersSeparatedWithNewLineCharacters() throws ValidatorException {
+    public void sumOfAnUnknownAmountTest() throws ValidatorException {
         int result = stringCalculator.add(NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE);
 
         assertEquals(6, result);
     }
 
     @Test
-    public void shouldReturnTheSumOfAnUnknownAmoutOfNumbersSeparatedWithDifferentDelimiters() throws ValidatorException {
+    public void sumOfAnUnknownAmoutOfNumbersSeparatedWithDifferentDelimitersTest() throws ValidatorException {
         int result = stringCalculator.add(NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS);
 
         assertEquals(7, result);
+    }
+    
+    @Test(expected = NegativeNumbersNotAllowedException.class)
+    public void shouldThrowNegativeNumbersNotSupportedException() throws ValidatorException {
+        stringCalculator.add(NUMBERS_STRING_WITH_NEGATIVE_VALUES);
     }
     
     @SuppressWarnings({ "unchecked" })
