@@ -48,7 +48,7 @@ public class StringCalculator {
 	private List<Integer> extractNumbers(final String numbers) {
 		List<Integer> result = new LinkedList<Integer>();
 		if (numbers != null && !numbers.isEmpty()) {
-			final Pattern NUMBER_PATTERN = Pattern.compile("-?\\d+");
+			final Pattern NUMBER_PATTERN = Pattern.compile("\\d");
 			Matcher matcher = NUMBER_PATTERN.matcher(numbers);
 			while (matcher.find()) {
 				int number = Integer.parseInt(matcher.group());
