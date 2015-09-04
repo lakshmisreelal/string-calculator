@@ -20,20 +20,20 @@ public class NegativeNumberFinderTest {
     private static final int NEGATIVE_VALUE = -10;
 
     @Test
-    public void shouldValidatePositiveNumbers() throws ValidatorException {
+    public void positiveNumbersTest() throws ValidatorException {
         List<Integer> positiveNumbers = generateIntegerList(POSITIVE_VALUE);
         NegativeNumberFinder.validate(positiveNumbers);
     }
 
     @Test
-    public void shouldValidateZero() throws ValidatorException {
+    public void zeroTest() throws ValidatorException {
         List<Integer> positiveNumbers = generateIntegerList(ZERO);
         NegativeNumberFinder.validate(positiveNumbers);
     }
 
 
     @Test(expected = NegativeNumbersNotAllowedException.class)
-    public void shouldNotValidateNegativeNumbers() throws ValidatorException {
+    public void NegativeNumbersTest() throws ValidatorException {
         List<Integer> positiveNumbers = generateIntegerList(NEGATIVE_VALUE);
         NegativeNumberFinder.validate(positiveNumbers);
     }

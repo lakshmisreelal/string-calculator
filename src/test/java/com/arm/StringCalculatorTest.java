@@ -24,11 +24,11 @@ public class StringCalculatorTest {
     private static final String TWO_NUMBER_STRING = "1,2";
     private static final String THREE_NUMBER_STRING = "1,2,3";
     private static final String NEW_LINE_DELIMTER_BETWEEN_STRING = "1\n2\n3";
-    private static final String NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE = "1\n2,3";
-    private static final String NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS = "//;\n1;2p4";
-    private static final String NUMBERS_STRING_WITH_NEGATIVE_VALUES = "-10,1,3";
-    private static final String NUMBERS_STRING_SUM_TWO_WITH_MORE_THAN_THOUSAND = "2,1000";
-    private static final String NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS_CONSECUTIVES = "[*][%]\\n1*2%4";
+    private static final String SEPARATOR_NEW_LINE = "1\n2,3";
+    private static final String DIFFERENT_SEPARATORS = "//;\n1;2p4";
+    private static final String NEGATIVE_VALUES = "-10,1,3";
+    private static final String MORE_THAN_THOUSAND = "2,1000";
+    private static final String DIFFERENT_SEPARATORS_CONSECUTIVES = "[*][%]\\n1*2%4";
         
     private StringCalculator stringCalculator;
 
@@ -71,41 +71,41 @@ public class StringCalculatorTest {
     
     @Test
     public void sumOfAnUnknownAmountTest() throws ValidatorException {
-        int result = stringCalculator.add(NUMBERS_STRING_SUM_SIX_SEPARATOR_NEW_LINE);
+        int result = stringCalculator.add(SEPARATOR_NEW_LINE);
 
         assertEquals(6, result);
     }
 
     @Test
     public void sumOfAnUnknownAmoutOfNumbersSeparatedWithDifferentDelimitersTest() throws ValidatorException {
-        int result = stringCalculator.add(NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS);
+        int result = stringCalculator.add(DIFFERENT_SEPARATORS);
 
         assertEquals(7, result);
     }
     
     @Test(expected = NegativeNumbersNotAllowedException.class)
-    public void shouldThrowNegativeNumbersNotSupportedException() throws ValidatorException {
-        stringCalculator.add(NUMBERS_STRING_WITH_NEGATIVE_VALUES);
+    public void negativeNumbersNotSupportedException() throws ValidatorException {
+        stringCalculator.add(NEGATIVE_VALUES);
     }
     
 
     @Test
-    public void shouldIgnoreNumbersGratherThanOneThousand() throws ValidatorException {
-        int result = stringCalculator.add(NUMBERS_STRING_SUM_TWO_WITH_MORE_THAN_THOUSAND);
+    public void ignoreNumbersGreaterThanOneThousand() throws ValidatorException {
+        int result = stringCalculator.add(MORE_THAN_THOUSAND);
 
         assertEquals(1002, result);
     }
 
     @Test
-    public void shouldAllowDifferentDelimitersWithMoreThanOneCharAndMoreThanOneConsecutive() throws ValidatorException {
-        int result = stringCalculator.add(NUMBERS_STRING_SUM_SEVEN_DIFFERENT_SEPARATORS_CONSECUTIVES);
+    public void differentDelimitersWithMoreThanOneCharAndMoreThanOneConsecutive() throws ValidatorException {
+        int result = stringCalculator.add(DIFFERENT_SEPARATORS_CONSECUTIVES);
 
         assertEquals(7, result);
     }
     
     @SuppressWarnings({ "unchecked" })
 	@Test
-    public void shouldReturnAnEmptyCollectionIfTheParamIsEmpty() 
+    public void anEmptyCollectionIfTheParamIsEmpty() 
     throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
     	Method method = StringCalculator.class.getDeclaredMethod("extractNumbers", new Class[]{ String.class});
 		method.setAccessible(true);	
@@ -116,7 +116,7 @@ public class StringCalculatorTest {
     
     @SuppressWarnings({ "unchecked" })
 	@Test
-    public void shouldReturnACollectionWithTheNumbersExtracted() 
+    public void aCollectionWithTheNumbersExtracted() 
     throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
     	Method method = StringCalculator.class.getDeclaredMethod("extractNumbers", new Class[]{ String.class});
 		method.setAccessible(true);	

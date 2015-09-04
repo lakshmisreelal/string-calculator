@@ -19,25 +19,25 @@ public class UpperLimitValidationRuleTest {
 
     @Before
     public void setUp() {
-        initializeRule();
+        ruleInitializer();
     }
 
     @Test
-    public void shouldValidateANumberLessThanTopValue() {
+    public void numberLessThanTopValueTest() {
         assertTrue(rule.isValid(LESS_THAN_TOP_VALUE));
     }
 
     @Test
-    public void shouldValidateANumberEqualsToTheTopValue() {
+    public void numberEqualsToTheTopValueTest() {
         assertTrue(rule.isValid(TOP_VALUE));
     }
 
     @Test
-    public void shouldNotValidateANumberGreaterThanTopValue() {
+    public void numberGreaterThanTopValueTest() {
         assertFalse(rule.isValid(1001));
     }
 
-    private void initializeRule() {
+    private void ruleInitializer() {
         rule = new UpperLimitValidationRule(TOP_VALUE);
     }
     
